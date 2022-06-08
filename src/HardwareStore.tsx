@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from './components/Header'
 
 const HardwareStore = () => {
   return (
-    <div>HardwareStore</div>
+    <div>
+        <Header />
+    </div>
   )
 }
 

@@ -82,7 +82,7 @@ const Login = () => {
   return (
     <div className="container">
       <div className="row m-b-none">
-        <h2 className="center-align black-text darken-4">
+        <h2 className="center-align red-text darken-4" style={{fontWeight: "600"  }}>
           Don Raul’s Hardware store
         </h2>
 
@@ -111,7 +111,7 @@ const Login = () => {
           </div>
           <button
             onClick={loginUser}
-            className="col s12 btn btn-large m-md indigo"
+            className="col s12 btn btn-large m-md red accent-2"
           >
             Login
           </button>

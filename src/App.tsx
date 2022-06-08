@@ -1,13 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { stateType } from "./state/store";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { login, logout } from "./state/features/userSlice";
-import { auth } from "./firebase";
-import { useNavigate } from "react-router-dom";
 import HardwareStore from "./HardwareStore";
 
 function App() {
