@@ -38,7 +38,8 @@ const Header = () => {
   };
 
   //show or hide dropdown options
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [showNavbarProduct, setShowNavbarProduct] = useState(false);
+  const [showNavbarProvider, setShowNavbarProvider] = useState(false);
 
   return (
     <>
@@ -49,10 +50,13 @@ const Header = () => {
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a>Sass</a>
+              <a onClick={() => setShowNavbarProvider(!showNavbarProvider)}>
+                Providers<i className="material-icons right">arrow_drop_down</i>
+              </a>
             </li>
+
             <li>
-              <a onClick={() => setShowNavbar(!showNavbar)}>
+              <a onClick={() => setShowNavbarProduct(!showNavbarProduct)}>
                 Products<i className="material-icons right">arrow_drop_down</i>
               </a>
             </li>
@@ -73,15 +77,28 @@ const Header = () => {
           </ul>
         </div>
 
-        {showNavbar && (
-          <div className="nav-content">
+        {showNavbarProduct && (
+          <div id="subMenu-Product" className="nav-content">
             <ul className="tabs tabs-transparent">
               <li className="tab">
-                <a >Add new product</a>
+                <a  className="subtab-text">Add new product</a>
               </li>
               <li className="tab">
-                <a >Check Stock</a>
-              </li>   
+                <a  className="subtab-text">Check Stock</a>
+              </li>
+            </ul>
+          </div>
+        )}
+
+        {showNavbarProvider && (
+          <div id="subMenu-Product" className="nav-content">
+            <ul className="tabs tabs-transparent">
+              <li className="tab">
+                <a  className="subtab-text">Add new provider</a>
+              </li>
+              <li className="tab">
+                <a className="subtab-text">Check Providers</a>
+              </li>
             </ul>
           </div>
         )}
