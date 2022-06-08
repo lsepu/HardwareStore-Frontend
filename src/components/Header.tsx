@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,9 @@ const Header = () => {
     });
   }, []);
 
-
+  const logoutUser = async () => {
+    await signOut(auth);
+  };
 
   return (
     <nav>
@@ -45,7 +47,7 @@ const Header = () => {
         <li><a>Sass</a></li>
         <li><a>Components</a></li>
         <li style={{fontWeight: "bold", paddingLeft: "20px", fontSize: "18px"}}>{user.displayName}</li>
-        <li><a className="waves-effect waves-light btn">Logout</a></li>
+        <li><a onClick={logoutUser} className="waves-effect waves-light btn">Logout</a></li>
       </ul>
     </div>
   </nav>
