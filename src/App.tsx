@@ -1,21 +1,24 @@
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { stateType } from "./state/store";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { login, logout } from "./state/features/userSlice";
+import { auth } from "./firebase";
+import { useNavigate } from "react-router-dom";
+import HardwareStore from "./HardwareStore";
 
 function App() {
-  const AuthWrapper = (isAuthenticated: boolean) => {
-    return isAuthenticated ? (
-      <Navigate to="/store" replace />
-    ) : (
-      <Navigate to="/login" replace />
-    );
-  };
+  const user = useSelector((state: stateType) => state.user.user);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={AuthWrapper(false)} />
+          <Route path="/store" element={<HardwareStore />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="*"
