@@ -10,7 +10,7 @@ import { stateType } from "../state/store";
 const Header = () => {
 
   const user = useSelector((state: stateType) => state.user.user);
-  console.log(user);
+  //console.log(user);
 
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const Header = () => {
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a>Sass</a></li>
         <li><a>Components</a></li>
-        <li style={{fontWeight: "bold", paddingLeft: "20px", fontSize: "18px"}}>{user.displayName}</li>
+        <li style={{fontWeight: "bold", paddingLeft: "20px", fontSize: "18px"}}>{user.displayName ? user.displayName : user.email}</li>
         <li><a onClick={logoutUser} className="waves-effect waves-light btn">Logout</a></li>
       </ul>
     </div>

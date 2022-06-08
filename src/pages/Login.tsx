@@ -13,7 +13,7 @@ interface ICredentials {
 
 const Login = () => {
   const user = useSelector((state: stateType) => state.user.user);
-  console.log(user);
+  //console.log(user);
 
   const navigate = useNavigate();
 
@@ -104,7 +104,7 @@ const Login = () => {
               className="validate"
               type="password"
               name="password"
-              value={loginInput.email}
+              value={loginInput.password}
               onChange={setLogin}
             />
             <label htmlFor="password">Enter your password</label>
