@@ -30,7 +30,7 @@ const Login = () => {
             //photoUrl: userAuth.photoURL,
           })
         );
-        navigate("/store");
+        navigate("/stock");
       } else {
         dispatch(logout());
       }

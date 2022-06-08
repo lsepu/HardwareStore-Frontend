@@ -3,7 +3,8 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { useSelector } from "react-redux";
 import { stateType } from "./state/store";
-import HardwareStore from "./HardwareStore";
+import AddProduct from "./pages/AddProduct";
+import Stock from "./pages/Stock";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
@@ -12,9 +13,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/store" element={<HardwareStore />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/stock" element={<Stock />} />
+          <Route path="/add-product" element={<AddProduct />} />
           <Route
             path="*"
             element={

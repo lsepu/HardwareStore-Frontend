@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { login, logout } from "../state/features/userSlice";
 import { stateType } from "../state/store";
@@ -25,7 +25,7 @@ const Header = () => {
             //photoUrl: userAuth.photoURL,
           })
         );
-        navigate("/store");
+        navigate("/stock");
       } else {
         dispatch(logout());
         navigate("/login");
@@ -81,10 +81,14 @@ const Header = () => {
           <div id="subMenu-Product" className="nav-content">
             <ul className="tabs tabs-transparent">
               <li className="tab">
-                <a  className="subtab-text">Add new product</a>
+                <Link to="/add-product" className="subtab-text">
+                  Add new product
+                </Link>
               </li>
               <li className="tab">
-                <a  className="subtab-text">Check Stock</a>
+                <Link to="/stock" className="subtab-text">
+                  Check Stock
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,7 +98,7 @@ const Header = () => {
           <div id="subMenu-Product" className="nav-content">
             <ul className="tabs tabs-transparent">
               <li className="tab">
-                <a  className="subtab-text">Add new provider</a>
+                <a className="subtab-text">Add new provider</a>
               </li>
               <li className="tab">
                 <a className="subtab-text">Check Providers</a>
