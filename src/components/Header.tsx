@@ -8,30 +8,36 @@ import { stateType } from "../state/store";
 
 const Header = () => {
   const user = useSelector((state: stateType) => state.user.user);
-  //console.log(user);
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  // check at page load if a user is authenticated
+  // const dispatch = useDispatch();
+  // // check at page load if a user is authenticated
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (userAuth) => {
+  //     if (userAuth) {
+  //       dispatch(
+  //         login({
+  //           email: userAuth.email,
+  //           //uid: userAuth.uid,
+  //           displayName: userAuth.displayName,
+  //           //photoUrl: userAuth.photoURL,
+  //         })
+  //       );
+  //       navigate("/stock");
+  //     } else {
+  //       dispatch(logout());
+  //       navigate("/login");
+  //     }
+  //   });
+  // }, []);
+
+  //check if it's not logged in
   useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        dispatch(
-          login({
-            email: userAuth.email,
-            //uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            //photoUrl: userAuth.photoURL,
-          })
-        );
-        navigate("/stock");
-      } else {
-        dispatch(logout());
-        navigate("/login");
-      }
-    });
-  }, []);
+    if (user.email === "") {
+      navigate("/login");
+    }
+  }, [user]);
 
   const logoutUser = async () => {
     await signOut(auth);

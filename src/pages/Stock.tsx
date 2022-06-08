@@ -3,8 +3,7 @@ import Header from "../components/Header";
 const Stock = () => {
   return (
     <>
-      <Header />
-
+    <Header />
       <h1 className="tab-title">Product Stock</h1>
       <div className="container">
         <div className="table-wrapper">

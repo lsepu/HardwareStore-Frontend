@@ -13,29 +13,36 @@ interface ICredentials {
 
 const Login = () => {
   const user = useSelector((state: stateType) => state.user.user);
-  //console.log(user);
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  // check at page load if a user is authenticated
+  //   const dispatch = useDispatch();
+  //   // check at page load if a user is authenticated
+  //   useEffect(() => {
+  //     onAuthStateChanged(auth, (userAuth) => {
+  //       if (userAuth) {
+  //         dispatch(
+  //           login({
+  //             email: userAuth.email,
+  //             //uid: userAuth.uid,
+  //             displayName: userAuth.displayName,
+  //             //photoUrl: userAuth.photoURL,
+  //           })
+  //         );
+  //         navigate("/stock");
+  //       } else {
+  //         dispatch(logout());
+  //       }
+  //     });
+  //   }, []);
+
   useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        dispatch(
-          login({
-            email: userAuth.email,
-            //uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            //photoUrl: userAuth.photoURL,
-          })
-        );
-        navigate("/stock");
-      } else {
-        dispatch(logout());
-      }
-    });
-  }, []);
+    if (user.email !== "") {
+      navigate("/stock");
+    } else {
+      navigate("/login");
+    }
+  }, [user]);
 
   const [loginInput, setLoginInput] = useState<ICredentials>({
     email: "",
@@ -82,7 +89,10 @@ const Login = () => {
   return (
     <div className="container">
       <div className="row m-b-none">
-        <h2 className="center-align red-text darken-4" style={{fontWeight: "600"  }}>
+        <h2
+          className="center-align red-text darken-4"
+          style={{ fontWeight: "600" }}
+        >
           Don Raul’s Hardware store
         </h2>
 
@@ -126,7 +136,11 @@ const Login = () => {
           </button>
 
           <div>
-            <p> For testing purposes: you can use email - donraul@mail.com and password - 123456</p>
+            <p>
+              {" "}
+              For testing purposes: you can use email - donraul@mail.com and
+              password - 123456
+            </p>
           </div>
         </form>
       </div>
