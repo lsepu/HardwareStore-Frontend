@@ -126,7 +126,7 @@ const Login = () => {
           </button>
 
           <div>
-            <p> Hint: you can use ... as user </p>
+            <p> For testing purposes: you can use email - donraul@mail.com and password - 123456</p>
           </div>
         </form>
       </div>
