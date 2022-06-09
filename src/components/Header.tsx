@@ -5,14 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { getProducts, getProviders } from "../state/actions";
 import { login, logout } from "../state/features/userSlice";
-import { stateType } from "../state/store";
+import { AppDispatch, stateType } from "../state/store";
 
 const Header = () => {
   const user = useSelector((state: stateType) => state.user.user);
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // const dispatch = useDispatch();
   // // check at page load if a user is authenticated

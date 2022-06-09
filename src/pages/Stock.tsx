@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import { deleteProduct } from "../state/actions";
-import { stateType } from "../state/store";
+import { AppDispatch, stateType } from "../state/store";
 
 const Stock = () => {
   const products = useSelector((state: stateType) => state.product.products);
   //console.log(products);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const deleteSelectedProduct = (id: string) => {
     const confirmDelete = confirm(

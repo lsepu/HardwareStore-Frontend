@@ -1,23 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import { deleteProvider } from "../state/actions";
-import { stateType } from "../state/store";
+import { AppDispatch, stateType } from "../state/store";
 
 const Providers = () => {
   const providers = useSelector((state: stateType) => state.provider.providers);
 
   const products = useSelector((state: stateType) => state.product.products);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const deleteSelectedProvider = (id: string) => {
     //check that the provider doesn't have products
     const productFound = products.find((product) => product.provider.id === id);
-    console.log(productFound);
 
     if (!productFound) {
       const confirmDelete = confirm(
-        "Are you sure you want to delete this product?"
+        "Are you sure you want to delete this provider?"
       );
       if (confirmDelete) {
         dispatch(deleteProvider(id));
