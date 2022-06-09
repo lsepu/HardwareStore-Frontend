@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import { deleteProvider } from "../state/actions";
@@ -15,7 +14,7 @@ const Providers = () => {
     //check that the provider doesn't have products
     const productFound = products.find((product) => product.provider.id === id);
     console.log(productFound);
-    
+
     if (!productFound) {
       const confirmDelete = confirm(
         "Are you sure you want to delete this product?"
