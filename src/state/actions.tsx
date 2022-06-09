@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IBillList } from "./features/BillSlice";
 import { IProduct, IProductList } from "./features/productSlice";
 import { IProvider, IProviderList } from "./features/providerSlice";
 
@@ -68,5 +69,14 @@ export const addProvider = createAsyncThunk(
     });
     const formattedResponse = await response.json();
     return formattedResponse as IProvider;
+  }
+);
+
+export const getBills = createAsyncThunk(
+  "bills/getBills",
+  async () => {
+    const response = await fetch("http://localhost:8080/bill/all");
+    const formattedResponse = await response.json();
+    return formattedResponse as IBillList;
   }
 );

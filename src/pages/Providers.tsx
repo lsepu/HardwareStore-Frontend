@@ -29,7 +29,7 @@ const Providers = () => {
   return (
     <>
       <Header />
-      <h1 className="tab-title">Prodviders</h1>
+      <h1 className="tab-title">Providers</h1>
       <div className="container">
         <div className="table-wrapper">
           <table className="striped highlight table-styling centered">

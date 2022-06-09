@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import billReducer from "./features/BillSlice";
 import productReducer from "./features/productSlice";
 import providerReducer from "./features/providerSlice";
 import UserReducer from "./features/userSlice";
@@ -8,6 +9,7 @@ const store = configureStore({
     user: UserReducer,
     product: productReducer,
     provider: providerReducer,
+    bill: billReducer
   },
 });
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-import { getProducts, getProviders } from "../state/actions";
+import { getBills, getProducts, getProviders } from "../state/actions";
 import { login, logout } from "../state/features/userSlice";
 import { AppDispatch, stateType } from "../state/store";
 
@@ -50,6 +50,11 @@ const Header = () => {
   //check providers
   useEffect(() => {
     dispatch(getProviders());
+  }, [dispatch]);
+
+  //check bills
+  useEffect(() => {
+    dispatch(getBills());
   }, [dispatch]);
 
   const logoutUser = async () => {
