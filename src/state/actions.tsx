@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IBillList } from "./features/BillSlice";
 import { IProduct, IProductList } from "./features/productSlice";
 import { IProvider, IProviderList } from "./features/providerSlice";
+import { IRecepit, IRecepitList } from "./features/receiptSlice";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
@@ -56,7 +57,6 @@ export const deleteProvider = createAsyncThunk(
   }
 );
 
-
 export const addProvider = createAsyncThunk(
   "products/addProduct",
   async (product: IProduct) => {
@@ -78,5 +78,29 @@ export const getBills = createAsyncThunk(
     const response = await fetch("http://localhost:8080/bill/all");
     const formattedResponse = await response.json();
     return formattedResponse as IBillList;
+  }
+);
+
+export const getReceipts = createAsyncThunk(
+  "receipts/getReceipts",
+  async () => {
+    const response = await fetch("http://localhost:8080/receipt/all");
+    const formattedResponse = await response.json();
+    return formattedResponse as IRecepitList;
+  }
+);
+
+export const createReceipt = createAsyncThunk(
+  "products/addProduct",
+  async (receipt: IRecepit) => {
+    const response = await fetch("http://localhost:8080/receipt/add", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(receipt),
+    });
+    const formattedResponse = await response.json();
+    return formattedResponse as IRecepit;
   }
 );

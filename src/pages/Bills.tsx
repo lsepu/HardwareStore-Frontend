@@ -28,8 +28,8 @@ const Bills = () => {
                   <td>{bill.clientName}</td>
                   <td>{bill.salesPersonName}</td>
                   <td>
-                    {bill.products.map((prod) => (
-                      <p>
+                    {bill.products.map((prod, index) => (
+                      <p key={index}>
                         <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
                         {prod.name} ----{" "}
                         <span style={{ fontWeight: "bold" }}>Quantity:</span>{" "}

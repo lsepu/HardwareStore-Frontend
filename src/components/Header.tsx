@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-import { getBills, getProducts, getProviders } from "../state/actions";
+import {
+  getBills,
+  getProducts,
+  getProviders,
+  getReceipts,
+} from "../state/actions";
 import { login, logout } from "../state/features/userSlice";
 import { AppDispatch, stateType } from "../state/store";
 
@@ -57,6 +62,13 @@ const Header = () => {
     dispatch(getBills());
   }, [dispatch]);
 
+  //check receipts
+  useEffect(() => {
+    dispatch(getReceipts());
+  }, [dispatch]);
+
+
+  
   const logoutUser = async () => {
     await signOut(auth);
   };
@@ -64,26 +76,26 @@ const Header = () => {
   //show or hide dropdown options
   const [showNavbarProduct, setShowNavbarProduct] = useState(false);
   const [showNavbarProvider, setShowNavbarProvider] = useState(false);
-  const [showNavbarBill, setShowNavbarBill] = useState(false)
+  const [showNavbarBill, setShowNavbarBill] = useState(false);
 
   //show tabs
   const toggleProviderNavbar = () => {
     showNavbarProduct && setShowNavbarProduct(false);
     showNavbarBill && setShowNavbarBill(false);
     setShowNavbarProvider(!showNavbarProvider);
-  }
+  };
 
   const toggleProductNavbar = () => {
     showNavbarProvider && setShowNavbarProvider(false);
     showNavbarBill && setShowNavbarBill(false);
     setShowNavbarProduct(!showNavbarProduct);
-  }
+  };
 
   const toggleBillNavbar = () => {
     showNavbarProduct && setShowNavbarProduct(false);
     showNavbarProvider && setShowNavbarProvider(false);
     setShowNavbarBill(!showNavbarBill);
-  }
+  };
 
   return (
     <>
@@ -93,13 +105,12 @@ const Header = () => {
             Hardware store Administration
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-
-          <li>
+            <li>
               <a onClick={toggleBillNavbar}>
                 Bill<i className="material-icons right">arrow_drop_down</i>
               </a>
             </li>
-            
+
             <li>
               <a onClick={toggleProviderNavbar}>
                 Providers<i className="material-icons right">arrow_drop_down</i>
@@ -143,7 +154,7 @@ const Header = () => {
               </li>
               <li className="tab">
                 <Link to="/buy-product" className="subtab-text">
-                  Buy product
+                  Request products
                 </Link>
               </li>
               <li className="tab">
@@ -188,7 +199,6 @@ const Header = () => {
             </ul>
           </div>
         )}
-
       </nav>
     </>
   );

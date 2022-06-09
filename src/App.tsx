@@ -12,7 +12,7 @@ import { auth } from "./firebase";
 import { getProducts } from "./state/actions";
 import Providers from "./pages/Providers";
 import AddProvider from "./pages/AddProvider";
-import BuyProduct from "./pages/BuyProduct";
+import BuyProduct from "./pages/RequestProduct";
 import Receipts from "./pages/Receipts";
 import BillForm from "./pages/BillForm";
 import Bills from "./pages/Bills";
