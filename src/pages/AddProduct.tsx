@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
+import { addProduct } from "../state/actions";
 import { stateType } from "../state/store";
 
 const AddProduct = () => {
   const providers = useSelector((state: stateType) => state.provider.providers);
+
+  const dispatch = useDispatch();
 
   const [productInput, setProductInput] = useState({
     name: "",
@@ -13,16 +16,41 @@ const AddProduct = () => {
     quantity: "",
     minUnits: "",
     maxUnits: "",
-    provider: {},
+    provider: null,
   });
 
   const [providerInput, setProviderInput] = useState({});
 
   const addNewProduct = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
     e.preventDefault();
-    console.log(productInput);
+    if (
+      productInput.name !== "" &&
+      productInput.description !== "" &&
+      productInput.price !== "" &&
+      productInput.quantity !== "" &&
+      productInput.minUnits !== "" &&
+      productInput.maxUnits !== "" &&
+      productInput.provider !== null
+    ) {
+
+      const productToAdd = {
+        name: productInput.name.toString(),
+        description: productInput.description.toString(),
+        price: parseInt(productInput.price.toString()),
+        quantity: parseInt(productInput.quantity.toString()),
+        minUnits: parseInt(productInput.minUnits.toString()),
+        maxUnits: parseInt(productInput.maxUnits.toString()),
+        provider: productInput.provider
+      }
+      dispatch(addProduct(productToAdd));
+
+      clearProductInput();
+      
+      console.log(productToAdd );
+    } else {
+      alert("Please don't leave a field empty");
+    }
   };
 
   const clearProductInput = () => {
@@ -33,7 +61,7 @@ const AddProduct = () => {
       quantity: "",
       minUnits: "",
       maxUnits: "",
-      provider: {},
+      provider: null,
     });
   };
 
@@ -132,12 +160,11 @@ const AddProduct = () => {
                 </div>
                 <div className="col s6">
                   {providers.map((provider) => (
-                    <p>
+                    <p key={provider.id}>
                       <label>
                         <input
-                          name={provider.idCard}
                           type="radio"
-                          checked={providerInput === provider}
+                          name="group1"
                           onChange={(e) => setProvider(e, provider)}
                         />
                         <span style={{ fontWeight: "700" }}>

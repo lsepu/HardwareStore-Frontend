@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getProviders } from '../actions';
 
 interface IProvider {
+    id: string;
     name: string;
     phoneNumber: string;
     idCard: string;
@@ -28,4 +29,4 @@ export const providerSlice = createSlice({
 
 export default providerSlice.reducer;
 
-export type { IProviderList }
+export type { IProviderList, IProvider }

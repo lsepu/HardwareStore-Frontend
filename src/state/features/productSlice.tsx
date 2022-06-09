@@ -1,5 +1,5 @@
-import { createSlice} from "@reduxjs/toolkit";
-import { deleteProduct, getProducts } from "../actions";
+import { createSlice } from "@reduxjs/toolkit";
+import { addProduct, deleteProduct, getProducts } from "../actions";
 import { IProvider } from "./providerSlice";
 
 interface IProduct {
@@ -36,9 +36,13 @@ export const productSlice = createSlice({
         (product) => product.id !== action.payload
       );
     });
+    //create
+    builder.addCase(addProduct.fulfilled, (state, action) => {
+      state.products.push(action.payload);
+    });
   },
 });
 
 export default productSlice.reducer;
 
-export type { IProductList };
+export type { IProductList, IProduct };

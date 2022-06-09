@@ -14,7 +14,6 @@ import { getProducts } from "./state/actions";
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
   const products = useSelector((state: stateType) => state.product.products);
-  console.log(products);
 
 
   const dispatch = useDispatch();
