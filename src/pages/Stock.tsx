@@ -1,9 +1,19 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
+import { getProducts } from "../state/actions";
+import { stateType } from "../state/store";
 
 const Stock = () => {
+
+  const products = useSelector((state: stateType) => state.product.products);
+  console.log(products);
+
+  const dispatch = useDispatch();
+
   return (
     <>
-    <Header />
+      <Header />
       <h1 className="tab-title">Product Stock</h1>
       <div className="container">
         <div className="table-wrapper">

@@ -9,10 +9,10 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "./state/features/userSlice";
 import { auth } from "./firebase";
+import { getProducts } from "./state/actions";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
-
 
   const dispatch = useDispatch();
   // check at page load if a user is authenticated
@@ -32,6 +32,11 @@ function App() {
       }
     });
   }, []);
+
+  //check products
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <div className="App">
