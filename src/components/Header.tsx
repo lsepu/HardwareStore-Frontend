@@ -117,10 +117,14 @@ const Header = () => {
           <div id="subMenu-Product" className="nav-content">
             <ul className="tabs tabs-transparent">
               <li className="tab">
-                <a className="subtab-text">Add new provider</a>
+                <Link to="/add-provider" className="subtab-text">
+                  Add new provider
+                </Link>
               </li>
               <li className="tab">
-                <a className="subtab-text">Check Providers</a>
+                <Link to="/providers" className="subtab-text">
+                  Check providers
+                </Link>
               </li>
             </ul>
           </div>

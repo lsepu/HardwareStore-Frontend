@@ -10,6 +10,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "./state/features/userSlice";
 import { auth } from "./firebase";
 import { getProducts } from "./state/actions";
+import Providers from "./pages/Providers";
+import AddProvider from "./pages/AddProvider";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
@@ -48,6 +50,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/stock" element={<Stock />} />
           <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/providers" element={<Providers />} />
+          <Route path="/add-provider" element={<AddProvider />} ></Route>
           <Route
             path="*"
             element={

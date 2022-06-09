@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProviders } from '../actions';
+import { deleteProvider, getProviders } from '../actions';
 
 interface IProvider {
     id: string;
@@ -17,12 +17,17 @@ const initialState : IProviderList = {
 }
 
 export const providerSlice = createSlice({
-    name: "product",
+    name: "provider",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        //get all providers
         builder.addCase(getProviders.fulfilled, (state, action) => {
             state.providers = action.payload;
+        }),
+        //delete provider
+        builder.addCase(deleteProvider.fulfilled, (state, action) => {
+            state.providers = state.providers.filter((provider) => provider.id !== action.payload);
         })
     }
 })

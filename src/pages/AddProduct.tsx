@@ -43,11 +43,10 @@ const AddProduct = () => {
         maxUnits: parseInt(productInput.maxUnits.toString()),
         provider: productInput.provider
       }
-      dispatch(addProduct(productToAdd));
-
-      clearProductInput();
       
-      console.log(productToAdd );
+      dispatch(addProduct(productToAdd));
+      clearProductInput();
+
     } else {
       alert("Please don't leave a field empty");
     }

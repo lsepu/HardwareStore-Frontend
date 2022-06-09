@@ -44,3 +44,13 @@ export const getProviders = createAsyncThunk(
     return formattedResponse as IProviderList;
   }
 );
+
+export const deleteProvider = createAsyncThunk(
+  "products/deleteProduct",
+  async (id: string) => {
+    const response = await fetch(`http://localhost:8080/provider/delete/${id}`, {
+      method: "DELETE",
+    });
+    return id;
+  }
+);
