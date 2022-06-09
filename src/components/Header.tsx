@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
+import { getProducts } from "../state/actions";
 import { login, logout } from "../state/features/userSlice";
 import { stateType } from "../state/store";
 
@@ -10,6 +11,8 @@ const Header = () => {
   const user = useSelector((state: stateType) => state.user.user);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   // const dispatch = useDispatch();
   // // check at page load if a user is authenticated
@@ -38,6 +41,11 @@ const Header = () => {
       navigate("/login");
     }
   }, [user]);
+
+  ///check products
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   const logoutUser = async () => {
     await signOut(auth);
@@ -76,7 +84,7 @@ const Header = () => {
               {user.displayName ? user.displayName : user.email}
             </li>
             <li>
-              <a onClick={logoutUser} className="waves-effect waves-light btn">
+              <a onClick={logoutUser} className=" blue darken-1 btn">
                 Logout
               </a>
             </li>

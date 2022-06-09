@@ -13,6 +13,9 @@ import { getProducts } from "./state/actions";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
+  const products = useSelector((state: stateType) => state.product.products);
+  console.log(products);
+
 
   const dispatch = useDispatch();
   // check at page load if a user is authenticated
@@ -34,9 +37,9 @@ function App() {
   }, []);
 
   //check products
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, [dispatch]);
 
   return (
     <div className="App">

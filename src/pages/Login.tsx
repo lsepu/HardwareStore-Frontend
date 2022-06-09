@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, signInWithGoogle } from "../firebase";
+import { getProducts } from "../state/actions";
 import { login, logout } from "../state/features/userSlice";
 import { stateType } from "../state/store";
 
@@ -13,6 +14,8 @@ interface ICredentials {
 
 const Login = () => {
   const user = useSelector((state: stateType) => state.user.user);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 

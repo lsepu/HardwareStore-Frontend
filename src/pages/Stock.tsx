@@ -1,15 +1,22 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
-import { getProducts } from "../state/actions";
+import { deleteProduct } from "../state/actions";
 import { stateType } from "../state/store";
 
 const Stock = () => {
-
   const products = useSelector((state: stateType) => state.product.products);
-  console.log(products);
+  //console.log(products);
 
   const dispatch = useDispatch();
+
+  const deleteSelectedProduct = (id: string) => {
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (confirmDelete) {
+      dispatch(deleteProduct(id));
+    }
+  };
 
   return (
     <>
@@ -27,19 +34,29 @@ const Stock = () => {
                 <th>Max units</th>
                 <th>Provider</th>
                 <th>Quantity</th>
+                <th>Remove?</th>
               </tr>
             </thead>
-
             <tbody>
-              <tr>
-                <td>Screw</td>
-                <td>A great screw to have in your store</td>
-                <td>$0.87</td>
-                <td>2</td>
-                <td>10</td>
-                <td>Pepito</td>
-                <td>5</td>
-              </tr>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>{product.description}</td>
+                  <td>{product.price}</td>
+                  <td>{product.minUnits}</td>
+                  <td>{product.maxUnits}</td>
+                  <td>{product.provider.name}</td>
+                  <td>{product.quantity}</td>
+                  <td>
+                    <a
+                      onClick={() => deleteSelectedProduct(product.id)}
+                      className="red btn"
+                    >
+                      Delete product
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
