@@ -12,11 +12,12 @@ import { auth } from "./firebase";
 import { getProducts } from "./state/actions";
 import Providers from "./pages/Providers";
 import AddProvider from "./pages/AddProvider";
+import BuyProduct from "./pages/BuyProduct";
+import Receipts from "./pages/Receipts";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
   const products = useSelector((state: stateType) => state.product.products);
-
 
   const dispatch = useDispatch();
   // check at page load if a user is authenticated
@@ -51,7 +52,9 @@ function App() {
           <Route path="/stock" element={<Stock />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/providers" element={<Providers />} />
-          <Route path="/add-provider" element={<AddProvider />} ></Route>
+          <Route path="/add-provider" element={<AddProvider />} />
+          <Route path="/buy-product" element={<BuyProduct />} />
+          <Route path="/receipts" element={<Receipts />} />
           <Route
             path="*"
             element={

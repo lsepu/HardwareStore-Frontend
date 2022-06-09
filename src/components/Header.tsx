@@ -109,6 +109,16 @@ const Header = () => {
                   Check Stock
                 </Link>
               </li>
+              <li className="tab">
+                <Link to="/buy-product" className="subtab-text">
+                  Buy product
+                </Link>
+              </li>
+              <li className="tab">
+                <Link to="/receipts" className="subtab-text">
+                  Receipts
+                </Link>
+              </li>
             </ul>
           </div>
         )}
