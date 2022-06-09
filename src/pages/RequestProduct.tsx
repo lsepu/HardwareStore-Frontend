@@ -137,7 +137,7 @@ const BuyProduct = () => {
                   </td>
                   <td>
                     <a onClick={RequestProduct} className="blue darken-1 btn">
-                      Request product
+                      Request 
                     </a>
                   </td>
                 </tr>
