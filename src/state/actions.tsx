@@ -91,7 +91,7 @@ export const getReceipts = createAsyncThunk(
 );
 
 export const createReceipt = createAsyncThunk(
-  "products/addProduct",
+  "receipts/createReceipt",
   async (receipt: IRecepit) => {
     const response = await fetch("http://localhost:8080/receipt/add", {
       method: "POST",

@@ -18,7 +18,7 @@ const Receipts = () => {
                 <th>Date</th>
                 <th>Product</th>
                 <th>Provider</th>
-                <th>Quantity</th>
+                <th>Amount of units</th>
               </tr>
             </thead>
             <tbody>

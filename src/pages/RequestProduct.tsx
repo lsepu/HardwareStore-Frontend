@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Alert from "../components/Alert";
 import Header from "../components/Header";
+import { createReceipt } from "../state/actions";
 import { IProduct } from "../state/features/productSlice";
 import { IRecepit } from "../state/features/receiptSlice";
-import { stateType } from "../state/store";
+import { AppDispatch, stateType } from "../state/store";
 
 interface IProductQuantityInfo {
   currentQuantity: number;
@@ -13,8 +14,9 @@ interface IProductQuantityInfo {
 
 const BuyProduct = () => {
   const products = useSelector((state: stateType) => state.product.products);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [alert, setAlert] = useState<boolean>(false);
+  const [alertTrigger, setAlertTrigger] = useState<boolean>(false);
 
   const [receipt, setReceipt] = useState<IRecepit>({
     date: "",
@@ -57,11 +59,11 @@ const BuyProduct = () => {
   };
 
   const setProductQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //set alert if its greater than the maximum number of units
+    //set alertTrigger if its greater than the maximum number of units
     parseInt(e.target.value) + productQuantityInfo.currentQuantity >
-      productQuantityInfo.maxUnits 
-      ? setAlert(true)
-      : setAlert(false);
+    productQuantityInfo.maxUnits
+      ? setAlertTrigger(true)
+      : setAlertTrigger(false);
 
     //increment or decrement product quantity
     setReceipt({
@@ -71,14 +73,28 @@ const BuyProduct = () => {
   };
 
   const RequestProduct = () => {
-    console.log(receipt);
+    dispatch(createReceipt(receipt));
+    alert("Product successfully requested");
+
+    //clear states
+    setAlertTrigger(false);
+    setReceipt({
+      date: "",
+      providerName: "",
+      productName: "",
+      quantity: 0,
+    });
   };
 
   return (
     <div>
       <Header />
 
-      {alert && <Alert message={"You are exceding the maximum amount of this product"}/>}
+      {alertTrigger && (
+        <Alert
+          message={"You are exceding the maximum amount of this product"}
+        />
+      )}
 
       <h1 className="tab-title">Request products</h1>
       <div className="container">
@@ -137,7 +153,7 @@ const BuyProduct = () => {
                   </td>
                   <td>
                     <a onClick={RequestProduct} className="blue darken-1 btn">
-                      Request 
+                      Request
                     </a>
                   </td>
                 </tr>
