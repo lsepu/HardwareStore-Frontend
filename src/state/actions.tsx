@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IProductList } from "./features/productSlice";
+import { IProviderList } from "./features/providerSlice";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
@@ -19,3 +20,12 @@ export const deleteProduct = createAsyncThunk(
     return id;
   }
 );
+
+export const getProviders = createAsyncThunk(
+    "provider/getProviders",
+    async () => {
+      const response = await fetch("http://localhost:8080/provider/all");
+      const formattedResponse = await response.json();
+      return formattedResponse as IProviderList;
+    }
+  );
