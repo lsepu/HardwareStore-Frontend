@@ -14,6 +14,8 @@ import Providers from "./pages/Providers";
 import AddProvider from "./pages/AddProvider";
 import BuyProduct from "./pages/BuyProduct";
 import Receipts from "./pages/Receipts";
+import BillForm from "./pages/BillForm";
+import Bills from "./pages/Bills";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
@@ -55,6 +57,8 @@ function App() {
           <Route path="/add-provider" element={<AddProvider />} />
           <Route path="/buy-product" element={<BuyProduct />} />
           <Route path="/receipts" element={<Receipts />} />
+          <Route path="/generate-bill" element={<BillForm />} />
+          <Route path="/bills" element={<Bills />} />
           <Route
             path="*"
             element={

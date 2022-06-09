@@ -59,16 +59,25 @@ const Header = () => {
   //show or hide dropdown options
   const [showNavbarProduct, setShowNavbarProduct] = useState(false);
   const [showNavbarProvider, setShowNavbarProvider] = useState(false);
+  const [showNavbarBill, setShowNavbarBill] = useState(false)
 
   //show tabs
   const toggleProviderNavbar = () => {
     showNavbarProduct && setShowNavbarProduct(false);
+    showNavbarBill && setShowNavbarBill(false);
     setShowNavbarProvider(!showNavbarProvider);
   }
 
   const toggleProductNavbar = () => {
     showNavbarProvider && setShowNavbarProvider(false);
+    showNavbarBill && setShowNavbarBill(false);
     setShowNavbarProduct(!showNavbarProduct);
+  }
+
+  const toggleBillNavbar = () => {
+    showNavbarProduct && setShowNavbarProduct(false);
+    showNavbarProvider && setShowNavbarProvider(false);
+    setShowNavbarBill(!showNavbarBill);
   }
 
   return (
@@ -79,6 +88,13 @@ const Header = () => {
             Hardware store Administration
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
+
+          <li>
+              <a onClick={toggleBillNavbar}>
+                Bill<i className="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+            
             <li>
               <a onClick={toggleProviderNavbar}>
                 Providers<i className="material-icons right">arrow_drop_down</i>
@@ -150,6 +166,24 @@ const Header = () => {
             </ul>
           </div>
         )}
+
+        {showNavbarBill && (
+          <div id="subMenu-Product" className="nav-content">
+            <ul className="tabs tabs-transparent">
+              <li className="tab">
+                <Link to="/generate-bill" className="subtab-text">
+                  Generate Bill
+                </Link>
+              </li>
+              <li className="tab">
+                <Link to="/bills" className="subtab-text">
+                  Check bills
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
+
       </nav>
     </>
   );
