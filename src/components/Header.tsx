@@ -60,6 +60,17 @@ const Header = () => {
   const [showNavbarProduct, setShowNavbarProduct] = useState(false);
   const [showNavbarProvider, setShowNavbarProvider] = useState(false);
 
+  //show tabs
+  const toggleProviderNavbar = () => {
+    showNavbarProduct && setShowNavbarProduct(false);
+    setShowNavbarProvider(!showNavbarProvider);
+  }
+
+  const toggleProductNavbar = () => {
+    showNavbarProvider && setShowNavbarProvider(false);
+    setShowNavbarProduct(!showNavbarProduct);
+  }
+
   return (
     <>
       <nav className="nav-extended">
@@ -69,13 +80,13 @@ const Header = () => {
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a onClick={() => setShowNavbarProvider(!showNavbarProvider)}>
+              <a onClick={toggleProviderNavbar}>
                 Providers<i className="material-icons right">arrow_drop_down</i>
               </a>
             </li>
 
             <li>
-              <a onClick={() => setShowNavbarProduct(!showNavbarProduct)}>
+              <a onClick={toggleProductNavbar}>
                 Products<i className="material-icons right">arrow_drop_down</i>
               </a>
             </li>
