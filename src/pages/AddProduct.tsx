@@ -46,9 +46,10 @@ const AddProduct = () => {
       
       dispatch(addProduct(productToAdd));
       clearProductInput();
+      alert("Product succesfully added");
 
     } else {
-      alert("Please don't leave a field empty");
+      alert("Please don't leave empty fields");
     }
   };
 

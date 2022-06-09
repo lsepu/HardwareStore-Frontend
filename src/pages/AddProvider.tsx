@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Header from "../components/Header";
+import { addProvider } from "../state/actions";
 
 const AddProvider = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,14 @@ const AddProvider = () => {
       providerInput.idCard != "" &&
       providerInput.phoneNumber != ""
     ) {
-      const providerToAd = {
+      const providerToAdd = {
         name: providerInput.name.toString(),
         idCard: providerInput.idCard.toString(),
         phoneNumber: providerInput.phoneNumber.toString(),
       };
-      console.log(providerToAd);
+      dispatch(addProvider(providerToAdd));
+      clearProviderInput();
+      alert("Provider succesfully added");
     } else {
       alert("Please don't leave empty fields");
     }
@@ -63,7 +66,7 @@ const AddProvider = () => {
                   onChange={setProvider}
                   type="text"
                 />
-                <label>Product name</label>
+                <label>Provider name</label>
               </div>
               <div className="input-field col s6">
                 <input
@@ -72,7 +75,7 @@ const AddProvider = () => {
                   name="idCard"
                   onChange={setProvider}
                 />
-                <label>Description</label>
+                <label>identification</label>
               </div>
             </div>
             <div className="row">
@@ -83,7 +86,7 @@ const AddProvider = () => {
                   name="phoneNumber"
                   onChange={setProvider}
                 />
-                <label>Description</label>
+                <label>Phone number</label>
               </div>
               <div className="input-field col s6">
                 <button onClick={addNewProvider} className="blue darken-1 btn">
