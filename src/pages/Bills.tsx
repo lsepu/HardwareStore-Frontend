@@ -32,8 +32,8 @@ const Bills = () => {
                       <p key={index}>
                         <span style={{ fontWeight: "bold" }}>Name:</span>{" "}
                         {prod.name} ----{" "}
-                        <span style={{ fontWeight: "bold" }}>Quantity:</span>{" "}
-                        {prod.quantity} ----{" "}
+                        <span style={{ fontWeight: "bold" }}>Amount:</span>{" "}
+                        {prod.amount} ----{" "}
                         <span style={{ fontWeight: "bold" }}>Total:</span>{" "}
                         {prod.total}
                       </p>

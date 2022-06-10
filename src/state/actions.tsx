@@ -107,6 +107,7 @@ export const createBill = createAsyncThunk(
       body: JSON.stringify(bill),
     });
     const formattedResponse = await response.json();
+    console.log(formattedResponse);
     return formattedResponse as IBill;
   }
 );

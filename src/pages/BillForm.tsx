@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { createBill } from "../state/actions";
 import { IBill, IProductOrder } from "../state/features/BillSlice";
@@ -10,6 +11,8 @@ const BillForm = () => {
   const products = useSelector((state: stateType) => state.product.products);
   const user = useSelector((state: stateType) => state.user.user);
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   // interface ICart {
   //   product: IProduct,
@@ -36,6 +39,8 @@ const BillForm = () => {
         total: product.price * productsAmount[position],
       };
 
+      console.log(productOrder);
+
       addToCart(productOrder);
     } else {
       removeFromCart(product.name);
@@ -56,7 +61,7 @@ const BillForm = () => {
   ) => {
     const updatedProductsAmount = productsAmount.map((product,index) => index === position ? parseInt(e.target.value) : product);
     setProductsAmount(updatedProductsAmount);
-    console.log(updatedProductsAmount);
+    //console.log(updatedProductsAmount);
   };
 
   const generateBill = () => {
@@ -71,12 +76,9 @@ const BillForm = () => {
       };
 
       console.log(bill);
-      //dispatch(createBill(bill));
-
+      dispatch(createBill(bill));
       alert("The bill was successfully generated");
-      //clear bill
-      setCart([]);
-      setProductsAmount(new Array(products.length).fill(1));
+      navigate("/bills")
 
     } else {
       alert("Your bill can't be generated");
@@ -86,7 +88,7 @@ const BillForm = () => {
   return (
     <div>
       <Header />
-      <h1 className="tab-title">Product Stock</h1>
+      <h1 className="tab-title">Generate bill</h1>
       <div className="container">
         <div className="table-wrapper">
           <table className="striped highlight table-styling centered">
