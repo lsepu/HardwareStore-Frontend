@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "../components/Alert";
 import Header from "../components/Header";
-import { createReceipt } from "../state/actions";
+import { createReceipt, updateProduct } from "../state/actions";
 import { IProduct } from "../state/features/productSlice";
 import { IRecepit } from "../state/features/receiptSlice";
 import { AppDispatch, stateType } from "../state/store";
@@ -25,11 +25,21 @@ const BuyProduct = () => {
     quantity: 0,
   });
 
-  const [productQuantityInfo, setProductQuantityInfo] =
-    useState<IProductQuantityInfo>({
-      currentQuantity: 0,
-      maxUnits: 0,
-    });
+  const [productInfo, setProductInfo] = useState<IProduct>({
+    id: "",
+    name: "",
+    description: "",
+    price: 0,
+    quantity: 0,
+    minUnits: 0,
+    maxUnits: 0,
+    provider: {
+      id: "",
+      name: "",
+      phoneNumber: "",
+      idCard: "",
+    },
+  });
 
   const getProductToRequest = (product: IProduct) => {
     //create initial order
@@ -40,12 +50,8 @@ const BuyProduct = () => {
       quantity: 1,
     };
 
-    //get the product maximum
-    setProductQuantityInfo({
-      currentQuantity: product.quantity,
-      maxUnits: product.maxUnits,
-    });
-
+    //get the product info
+    setProductInfo(product);
     setReceipt(order);
   };
 
@@ -60,8 +66,7 @@ const BuyProduct = () => {
 
   const setProductQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
     //set alertTrigger if its greater than the maximum number of units
-    parseInt(e.target.value) + productQuantityInfo.currentQuantity >
-    productQuantityInfo.maxUnits
+    parseInt(e.target.value) + productInfo.quantity > productInfo.maxUnits
       ? setAlertTrigger(true)
       : setAlertTrigger(false);
 
@@ -73,16 +78,41 @@ const BuyProduct = () => {
   };
 
   const RequestProduct = () => {
+
+    const productToUpdateUnits = {
+      ...productInfo,
+      quantity: productInfo.quantity + receipt.quantity
+    }
+
+
+    dispatch(updateProduct(productToUpdateUnits));
     dispatch(createReceipt(receipt));
     alert("Product successfully requested");
 
     //clear states
     setAlertTrigger(false);
+
     setReceipt({
       date: "",
       providerName: "",
       productName: "",
       quantity: 0,
+    });
+
+    setProductInfo({
+      id: "",
+      name: "",
+      description: "",
+      price: 0,
+      quantity: 0,
+      minUnits: 0,
+      maxUnits: 0,
+      provider: {
+        id: "",
+        name: "",
+        phoneNumber: "",
+        idCard: "",
+      },
     });
   };
 
@@ -105,6 +135,7 @@ const BuyProduct = () => {
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Provider</th>
+                <th>Quantity</th>
                 <th>Request?</th>
               </tr>
             </thead>
@@ -114,6 +145,7 @@ const BuyProduct = () => {
                   <td>{product.name}</td>
                   <td>{product.description}</td>
                   <td>{product.provider.name}</td>
+                  <td>{product.quantity}</td>
                   <td>
                     <a
                       onClick={() => getProductToRequest(product)}
@@ -130,7 +162,7 @@ const BuyProduct = () => {
 
         {receipt.date !== "" && (
           <>
-            <table className="striped highlight table-styling centered">
+            <table className="striped highlight table-styling centered" style={{marginTop: "30px"}}>
               <thead>
                 <tr>
                   <th>Product Name</th>
@@ -161,7 +193,7 @@ const BuyProduct = () => {
             </table>
 
             <a
-              style={{ marginTop: "25px" }}
+              style={{ marginTop: "30px" }}
               onClick={clearRequest}
               className="red btn"
             >

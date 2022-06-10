@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProduct, deleteProduct, getProducts } from "../actions";
+import {
+  addProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "../actions";
 import { IProvider } from "./providerSlice";
 
 interface IProduct {
@@ -39,6 +44,11 @@ export const productSlice = createSlice({
     //create
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.products.push(action.payload);
+    });
+    //update
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      const updatedProduct = action.payload;
+      state.products= state.products.map(product => product.id === updatedProduct.id ? updatedProduct : product)
     });
   },
 });

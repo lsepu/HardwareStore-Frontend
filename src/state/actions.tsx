@@ -38,6 +38,21 @@ export const addProduct = createAsyncThunk(
   }
 );
 
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async (product: IProduct) => {
+    const response = await fetch("http://localhost:8080/product/update", {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(product),
+    });
+    const formattedResponse = await response.json();
+    return formattedResponse as IProduct;
+  }
+);
+
 export const getProviders = createAsyncThunk(
   "provider/getProviders",
   async () => {
@@ -58,14 +73,14 @@ export const deleteProvider = createAsyncThunk(
 );
 
 export const addProvider = createAsyncThunk(
-  "products/addProduct",
-  async (product: IProduct) => {
+  "products/addProvider",
+  async (provider: IProvider) => {
     const response = await fetch("http://localhost:8080/provider/add", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify(provider),
     });
     const formattedResponse = await response.json();
     return formattedResponse as IProvider;

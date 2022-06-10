@@ -19,8 +19,6 @@ const AddProduct = () => {
     provider: null,
   });
 
-  const [providerInput, setProviderInput] = useState({});
-
   const addNewProduct = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
     e.preventDefault();

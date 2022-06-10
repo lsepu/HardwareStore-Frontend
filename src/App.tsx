@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "./state/features/userSlice";
 import { auth } from "./firebase";
-import { getProducts } from "./state/actions";
 import Providers from "./pages/Providers";
 import AddProvider from "./pages/AddProvider";
 import BuyProduct from "./pages/RequestProduct";
