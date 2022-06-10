@@ -1,40 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBills } from "../actions";
+import { createBill, getBills } from "../actions";
 
 interface IBill {
-    id: string;
-    date: string;
-    clientName: string;
-    salesPersonName: string;
-    products: IProductOrder[] 
+  date: string;
+  clientName: string;
+  salesPersonName: string;
+  products: IProductOrder[];
 }
 
 interface IProductOrder {
-    name: string;
-    price: number;
-    quantity: number;
+  name: string;
+  amount: number;
+  total: number;
 }
 
-interface IBillList {
-    bills: IBill[]
+interface IBillList {   
+  bills: IBill[];
 }
 
-const initialState : IBillList = {
-    bills : []
-}
+const initialState: IBillList = {
+  bills: [],
+};
 
 export const billSlice = createSlice({
-    name: "bill",
-    initialState,
-    reducers : {},
-    extraReducers: (builder) => {
+  name: "bill",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
     //fecth
     builder.addCase(getBills.fulfilled, (state, action) => {
-        state.bills = action.payload;
+      state.bills = action.payload;
+    }),
+      //create
+      builder.addCase(createBill.fulfilled, (state, action) => {
+        state.bills.push(action.payload);
       });
-    }
-})
+  },
+});
 
 export default billSlice.reducer;
 
-export type { IBillList, IBill };
+export type { IBillList, IBill, IProductOrder };

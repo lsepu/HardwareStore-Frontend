@@ -1,41 +1,85 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
+import { createBill } from "../state/actions";
+import { IBill, IProductOrder } from "../state/features/BillSlice";
 import { IProduct } from "../state/features/productSlice";
-import { stateType } from "../state/store";
+import { AppDispatch, stateType } from "../state/store";
 
 const BillForm = () => {
   const products = useSelector((state: stateType) => state.product.products);
+  const user = useSelector((state: stateType) => state.user.user);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [cart, setCart] = useState<IProduct[]>([]);
+  // interface ICart {
+  //   product: IProduct,
+  //   amount: number
+  // }
+
+  const [cart, setCart] = useState<IProductOrder[]>([]);
 
   const [clientName, setClientName] = useState("");
 
+  const [productsAmount, setProductsAmount] = useState(
+    new Array(products.length).fill(1)
+  );
+
   const verifyChecked = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>,
-    product: IProduct
+    product: IProduct,
+    position: number
   ) => {
     if (e.currentTarget.checked) {
-      addToCart(product);
+      const productOrder = {
+        name: product.name,
+        amount: productsAmount[position],
+        total: product.price * productsAmount[position],
+      };
+
+      addToCart(productOrder);
     } else {
-      removeFromCart(product);
+      removeFromCart(product.name);
     }
   };
 
-  const addToCart = (product: IProduct) => {
-    setCart([...cart, product]);
+  const addToCart = (productOrder: IProductOrder) => {
+    setCart([...cart, productOrder]);
   };
 
-  const removeFromCart = (product: IProduct) => {
-    setCart(cart.filter((p) => p.id !== product.id));
+  const removeFromCart = (productName: string) => {
+    setCart(cart.filter((product) => product.name !== productName));
+  };
+
+  const handleAmount = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    position: number,
+  ) => {
+    const updatedProductsAmount = productsAmount.map((product,index) => index === position ? parseInt(e.target.value) : product);
+    setProductsAmount(updatedProductsAmount);
+    console.log(updatedProductsAmount);
   };
 
   const generateBill = () => {
     if (cart.length > 0 && clientName) {
-      console.log(clientName);
-      console.log(cart);
-    } else{
-      alert("Your bill can't be generated")
+      const salesPersonName = user.displayName ? user.displayName : user.email;
+
+      const bill: IBill = {
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        clientName: clientName,
+        salesPersonName: salesPersonName,
+        products: cart,
+      };
+
+      console.log(bill);
+      //dispatch(createBill(bill));
+
+      alert("The bill was successfully generated");
+      //clear bill
+      setCart([]);
+      setProductsAmount(new Array(products.length).fill(1));
+
+    } else {
+      alert("Your bill can't be generated");
     }
   };
 
@@ -55,7 +99,7 @@ const BillForm = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {products.map((product, index) => (
                 <tr key={product.id}>
                   {product.quantity > 0 && (
                     <>
@@ -65,7 +109,7 @@ const BillForm = () => {
                             <input
                               type="checkbox"
                               className="filled-in"
-                              onClick={(e) => verifyChecked(e, product)}
+                              onClick={(e) => verifyChecked(e, product, index)}
                             />
                             <span>Add</span>
                           </label>
@@ -78,8 +122,10 @@ const BillForm = () => {
                           style={{ width: "200px" }}
                           min="1"
                           max={product.quantity}
+                          value={productsAmount[index]}
                           type="number"
-                          name="quantity"
+                          name="amount"
+                          onChange={(e) => handleAmount(e,index)}
                         />
                       </td>
                     </>

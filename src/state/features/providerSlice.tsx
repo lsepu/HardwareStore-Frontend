@@ -28,7 +28,7 @@ export const providerSlice = createSlice({
         //delete provider
         builder.addCase(deleteProvider.fulfilled, (state, action) => {
             state.providers = state.providers.filter((provider) => provider.id !== action.payload);
-        })
+        }),
         //create
         builder.addCase(addProvider.fulfilled, (state, action) => {
             state.providers.push(action.payload);

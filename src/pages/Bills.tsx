@@ -22,8 +22,8 @@ const Bills = () => {
               </tr>
             </thead>
             <tbody>
-              {bills.map((bill) => (
-                <tr key={bill.id}>
+              {bills.map((bill, index) => (
+                <tr key={index}>
                   <td>{bill.date}</td>
                   <td>{bill.clientName}</td>
                   <td>{bill.salesPersonName}</td>
@@ -35,7 +35,7 @@ const Bills = () => {
                         <span style={{ fontWeight: "bold" }}>Quantity:</span>{" "}
                         {prod.quantity} ----{" "}
                         <span style={{ fontWeight: "bold" }}>Total:</span>{" "}
-                        {prod.price}
+                        {prod.total}
                       </p>
                     ))}
                   </td>

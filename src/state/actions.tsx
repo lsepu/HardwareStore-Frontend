@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IBillList } from "./features/BillSlice";
+import { IBill, IBillList } from "./features/BillSlice";
 import { IProduct, IProductList } from "./features/productSlice";
 import { IProvider, IProviderList } from "./features/providerSlice";
 import { IRecepit, IRecepitList } from "./features/receiptSlice";
@@ -9,7 +9,7 @@ export const getProducts = createAsyncThunk(
   async () => {
     const response = await fetch("http://localhost:8080/product/all");
     const formattedResponse = await response.json();
-    return formattedResponse as IProductList;
+    return formattedResponse;
   }
 );
 
@@ -58,7 +58,7 @@ export const getProviders = createAsyncThunk(
   async () => {
     const response = await fetch("http://localhost:8080/provider/all");
     const formattedResponse = await response.json();
-    return formattedResponse as IProviderList;
+    return formattedResponse;
   }
 );
 
@@ -92,7 +92,22 @@ export const getBills = createAsyncThunk(
   async () => {
     const response = await fetch("http://localhost:8080/bill/all");
     const formattedResponse = await response.json();
-    return formattedResponse as IBillList;
+    return formattedResponse;
+  }
+);
+
+export const createBill = createAsyncThunk(
+  "bills/createBill",
+  async (bill: IBill) => {
+    const response = await fetch("http://localhost:8080/bill/add", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(bill),
+    });
+    const formattedResponse = await response.json();
+    return formattedResponse as IBill;
   }
 );
 
@@ -101,7 +116,7 @@ export const getReceipts = createAsyncThunk(
   async () => {
     const response = await fetch("http://localhost:8080/receipt/all");
     const formattedResponse = await response.json();
-    return formattedResponse as IRecepitList;
+    return formattedResponse;
   }
 );
 
