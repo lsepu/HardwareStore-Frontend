@@ -19,27 +19,6 @@ const Header = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // const dispatch = useDispatch();
-  // // check at page load if a user is authenticated
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (userAuth) => {
-  //     if (userAuth) {
-  //       dispatch(
-  //         login({
-  //           email: userAuth.email,
-  //           //uid: userAuth.uid,
-  //           displayName: userAuth.displayName,
-  //           //photoUrl: userAuth.photoURL,
-  //         })
-  //       );
-  //       navigate("/stock");
-  //     } else {
-  //       dispatch(logout());
-  //       navigate("/login");
-  //     }
-  //   });
-  // }, []);
-
   //check if it's not logged in
   useEffect(() => {
     if (user.email === "") {
@@ -47,28 +26,6 @@ const Header = () => {
     }
   }, [user]);
 
-  ///check products
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
-
-  //check providers
-  useEffect(() => {
-    dispatch(getProviders());
-  }, [dispatch]);
-
-  //check bills
-  useEffect(() => {
-    dispatch(getBills());
-  }, [dispatch]);
-
-  //check receipts
-  useEffect(() => {
-    dispatch(getReceipts());
-  }, [dispatch]);
-
-
-  
   const logoutUser = async () => {
     await signOut(auth);
   };

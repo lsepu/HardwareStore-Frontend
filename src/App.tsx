@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { stateType } from "./state/store";
+import { AppDispatch, stateType } from "./state/store";
 import AddProduct from "./pages/AddProduct";
 import Stock from "./pages/Stock";
 import { useEffect } from "react";
@@ -15,12 +15,13 @@ import BuyProduct from "./pages/RequestProduct";
 import Receipts from "./pages/Receipts";
 import BillForm from "./pages/BillForm";
 import Bills from "./pages/Bills";
+import { getBills, getProducts, getProviders, getReceipts } from "./state/actions";
 
 function App() {
   const user = useSelector((state: stateType) => state.user.user);
   const products = useSelector((state: stateType) => state.product.products);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // check at page load if a user is authenticated
   useEffect(() => {
     onAuthStateChanged(auth, (userAuth) => {
@@ -39,10 +40,26 @@ function App() {
     });
   }, []);
 
-  //check products
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
+    ///check products
+    useEffect(() => {
+      dispatch(getProducts());
+    }, [dispatch]);
+  
+    //check providers
+    useEffect(() => {
+      dispatch(getProviders());
+    }, [dispatch]);
+  
+    //check bills
+    useEffect(() => {
+      dispatch(getBills());
+    }, [dispatch]);
+  
+    //check receipts
+    useEffect(() => {
+      dispatch(getReceipts());
+    }, [dispatch]);
+
 
   return (
     <div className="App">

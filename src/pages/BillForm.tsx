@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 import Header from "../components/Header";
 import { createBill } from "../state/actions";
 import { IBill, IProductOrder } from "../state/features/BillSlice";
@@ -14,33 +15,40 @@ const BillForm = () => {
 
   const navigate = useNavigate();
 
-  // interface ICart {
-  //   product: IProduct,
-  //   amount: number
-  // }
+  //trigger alert if its going to be less than the minimum
+  const [alertTrigger, setAlertTrigger] = useState<boolean>(false);
 
+  //create cart of products that is going to be in the bill
   const [cart, setCart] = useState<IProductOrder[]>([]);
 
+  //handle client name info
   const [clientName, setClientName] = useState("");
 
-  const [productsAmount, setProductsAmount] = useState(
-    new Array(products.length).fill(1)
+  const [checked, setChecked] = useState(
+    new Array(products.length).fill(false)
   );
+
+  const handleChecked = (position: number) => {
+    const updatedProductsChecked = checked.map((checkedState, index) =>
+      index === position ? !checkedState : checkedState
+    );
+    setChecked(updatedProductsChecked);
+  };
 
   const verifyChecked = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>,
     product: IProduct,
     position: number
   ) => {
+    handleChecked(position);
+
+    //add to cart with initial values
     if (e.currentTarget.checked) {
       const productOrder = {
         name: product.name,
-        amount: productsAmount[position],
-        total: product.price * productsAmount[position],
+        amount: 1,
+        total: product.price,
       };
-
-      console.log(productOrder);
-
       addToCart(productOrder);
     } else {
       removeFromCart(product.name);
@@ -55,13 +63,27 @@ const BillForm = () => {
     setCart(cart.filter((product) => product.name !== productName));
   };
 
-  const handleAmount = (
+  //When I start adding products it is going to update the cart
+  const updateCartAmount = (
     e: React.ChangeEvent<HTMLInputElement>,
-    position: number,
+    product: IProduct
   ) => {
-    const updatedProductsAmount = productsAmount.map((product,index) => index === position ? parseInt(e.target.value) : product);
-    setProductsAmount(updatedProductsAmount);
-    //console.log(updatedProductsAmount);
+    const amount = e.target.valueAsNumber;
+
+    //check to set alert
+    product.quantity - amount < product.minUnits ? setAlertTrigger(true) : setAlertTrigger(false);
+
+    const productOrderUpdated = {
+      name: product.name,
+      amount: amount,
+      total: product.price * amount,
+    };
+
+    const updatedCart = cart.map((order, index) =>
+      order.name === product.name ? productOrderUpdated : order
+    );
+
+    setCart(updatedCart);
   };
 
   const generateBill = () => {
@@ -75,11 +97,9 @@ const BillForm = () => {
         products: cart,
       };
 
-      console.log(bill);
       dispatch(createBill(bill));
       alert("The bill was successfully generated");
-      navigate("/bills")
-
+      navigate("/bills");
     } else {
       alert("Your bill can't be generated");
     }
@@ -88,6 +108,15 @@ const BillForm = () => {
   return (
     <div>
       <Header />
+
+      {alertTrigger && (
+        <Alert
+          message={
+            "If you sell this amount the product quantity is going to be less than the minimum"
+          }
+        />
+      )}
+
       <h1 className="tab-title">Generate bill</h1>
       <div className="container">
         <div className="table-wrapper">
@@ -120,15 +149,16 @@ const BillForm = () => {
                       <td>{product.name}</td>
                       <td>{product.price}</td>
                       <td>
-                        <input
-                          style={{ width: "200px" }}
-                          min="1"
-                          max={product.quantity}
-                          value={productsAmount[index]}
-                          type="number"
-                          name="amount"
-                          onChange={(e) => handleAmount(e,index)}
-                        />
+                        {checked[index] && (
+                          <input
+                            style={{ width: "200px" }}
+                            min="1"
+                            max={product.quantity}
+                            type="number"
+                            name="amount"
+                            onChange={(e) => updateCartAmount(e, product)}
+                          />
+                        )}
                       </td>
                     </>
                   )}

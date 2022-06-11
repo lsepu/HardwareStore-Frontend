@@ -23,13 +23,13 @@ const AddProduct = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
     e.preventDefault();
     if (
-      productInput.name !== "" &&
-      productInput.description !== "" &&
-      productInput.price !== "" &&
-      productInput.quantity !== "" &&
-      productInput.minUnits !== "" &&
-      productInput.maxUnits !== "" &&
-      productInput.provider !== null
+      productInput.name &&
+      productInput.description  &&
+      productInput.price &&
+      productInput.quantity  &&
+      productInput.minUnits  &&
+      productInput.maxUnits &&
+      productInput.provider
     ) {
 
       const productToAdd = {
