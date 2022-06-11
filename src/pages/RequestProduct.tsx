@@ -79,13 +79,13 @@ const BuyProduct = () => {
 
   const RequestProduct = () => {
 
+    //update quantity for product in backend
     const productToUpdateUnits = {
       ...productInfo,
       quantity: productInfo.quantity + receipt.quantity
     }
-
-
     dispatch(updateProduct(productToUpdateUnits));
+
     dispatch(createReceipt(receipt));
     alert("Product successfully requested");
 

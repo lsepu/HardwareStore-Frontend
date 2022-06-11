@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
 import Header from "../components/Header";
-import { createBill } from "../state/actions";
+import { createBill, updateProduct } from "../state/actions";
 import { IBill, IProductOrder } from "../state/features/BillSlice";
 import { IProduct } from "../state/features/productSlice";
 import { AppDispatch, stateType } from "../state/store";
@@ -71,7 +71,9 @@ const BillForm = () => {
     const amount = e.target.valueAsNumber;
 
     //check to set alert
-    product.quantity - amount < product.minUnits ? setAlertTrigger(true) : setAlertTrigger(false);
+    product.quantity - amount < product.minUnits
+      ? setAlertTrigger(true)
+      : setAlertTrigger(false);
 
     const productOrderUpdated = {
       name: product.name,
@@ -97,7 +99,16 @@ const BillForm = () => {
         products: cart,
       };
 
+      //update quantity for products in cart in the backend
+      products.forEach((product) => {
+        cart.forEach((productOrder) => {
+          product.name == productOrder.name && dispatch(updateProduct({...product, quantity: product.quantity - productOrder.amount}))
+        })
+      });
+
+      //bill creation in backend
       dispatch(createBill(bill));
+      
       alert("The bill was successfully generated");
       navigate("/bills");
     } else {
