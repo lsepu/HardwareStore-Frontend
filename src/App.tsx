@@ -3,18 +3,18 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, stateType } from "./state/store";
-import AddProduct from "./pages/AddProduct";
-import Stock from "./pages/Stock";
+import AddProduct from "./pages/Product/AddProduct";
+import Stock from "./pages/Product/Stock";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "./state/features/userSlice";
 import { auth } from "./firebase";
-import Providers from "./pages/Providers";
-import AddProvider from "./pages/AddProvider";
-import BuyProduct from "./pages/RequestProduct";
-import Receipts from "./pages/Receipts";
-import BillForm from "./pages/BillForm";
-import Bills from "./pages/Bills";
+import Providers from "./pages/Provider/Providers";
+import AddProvider from "./pages/Provider/AddProvider";
+import BuyProduct from "./pages/Product/RequestProduct";
+import Receipts from "./pages/Product/Receipts";
+import BillForm from "./pages/Bill/BillForm";
+import Bills from "./pages/Bill/Bills";
 import { getBills, getProducts, getProviders, getReceipts } from "./state/actions";
 
 function App() {

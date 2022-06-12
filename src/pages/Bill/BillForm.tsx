@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Alert from "../components/Alert";
-import Header from "../components/Header";
-import { createBill, updateProduct } from "../state/actions";
-import { IBill, IProductOrder } from "../state/features/BillSlice";
-import { IProduct } from "../state/features/productSlice";
-import { AppDispatch, stateType } from "../state/store";
+import Alert from "../../components/Alert";
+import Header from "../../components/Header";
+import { createBill, updateProduct } from "../../state/actions";
+import { IBill, IProductOrder } from "../../state/features/BillSlice";
+import { IProduct } from "../../state/features/productSlice";
+import { AppDispatch, stateType } from "../../state/store";
 
 const BillForm = () => {
   const products = useSelector((state: stateType) => state.product.products);

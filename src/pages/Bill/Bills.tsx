@@ -1,7 +1,7 @@
-import React from "react";
+
 import { useSelector } from "react-redux";
-import Header from "../components/Header";
-import { stateType } from "../state/store";
+import Header from "../../components/Header";
+import { stateType } from "../../state/store";
 
 const Bills = () => {
   const bills = useSelector((state: stateType) => state.bill.bills);

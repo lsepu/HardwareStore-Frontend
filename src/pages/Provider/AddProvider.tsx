@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Header from "../components/Header";
-import { addProvider } from "../state/actions";
-import { AppDispatch } from "../state/store";
+import Header from "../../components/Header";
+import { addProvider } from "../../state/actions";
+import { AppDispatch } from "../../state/store";
 
 const AddProvider = () => {
   const dispatch = useDispatch<AppDispatch>();

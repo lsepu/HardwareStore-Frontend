@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Alert from "../components/Alert";
-import Header from "../components/Header";
-import { createReceipt, updateProduct } from "../state/actions";
-import { IProduct } from "../state/features/productSlice";
-import { IRecepit } from "../state/features/receiptSlice";
-import { AppDispatch, stateType } from "../state/store";
+import Alert from "../../components/Alert";
+import Header from "../../components/Header";
+import { createReceipt, updateProduct } from "../../state/actions";
+import { IProduct } from "../../state/features/productSlice";
+import { IRecepit } from "../../state/features/receiptSlice";
+import { AppDispatch, stateType } from "../../state/store";
 
-interface IProductQuantityInfo {
-  currentQuantity: number;
-  maxUnits: number;
-}
 
 const BuyProduct = () => {
   const products = useSelector((state: stateType) => state.product.products);

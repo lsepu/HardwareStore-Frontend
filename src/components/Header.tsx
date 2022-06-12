@@ -1,15 +1,8 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import {  signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-import {
-  getBills,
-  getProducts,
-  getProviders,
-  getReceipts,
-} from "../state/actions";
-import { login, logout } from "../state/features/userSlice";
 import { AppDispatch, stateType } from "../state/store";
 
 const Header = () => {

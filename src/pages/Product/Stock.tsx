@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../components/Header";
-import { deleteProduct } from "../state/actions";
-import { AppDispatch, stateType } from "../state/store";
+import Header from "../../components/Header";
+import { deleteProduct } from "../../state/actions";
+import { AppDispatch, stateType } from "../../state/store";
 
 const Stock = () => {
   const products = useSelector((state: stateType) => state.product.products);

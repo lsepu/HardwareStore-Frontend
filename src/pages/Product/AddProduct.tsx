@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../components/Header";
-import { addProduct } from "../state/actions";
-import { AppDispatch, stateType } from "../state/store";
+import Header from "../../components/Header";
+import { addProduct } from "../../state/actions";
+import { AppDispatch, stateType } from "../../state/store";
 
 const AddProduct = () => {
   const providers = useSelector((state: stateType) => state.provider.providers);

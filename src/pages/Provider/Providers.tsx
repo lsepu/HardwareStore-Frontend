@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../components/Header";
-import { deleteProvider } from "../state/actions";
-import { AppDispatch, stateType } from "../state/store";
+import Header from "../../components/Header";
+import { deleteProvider } from "../../state/actions";
+import { AppDispatch, stateType } from "../../state/store";
 
 const Providers = () => {
   const providers = useSelector((state: stateType) => state.provider.providers);
